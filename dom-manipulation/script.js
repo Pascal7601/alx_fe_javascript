@@ -34,6 +34,10 @@ const showRandomQuote = () => {
 const showQuoteBtn = document.getElementById("newQuote");
 showQuoteBtn.addEventListener("click", showRandomQuote);
 
+function createAddQuoteForm() {
+    newQuoteDiv = document.querySelector(".new-container");
+    newQuoteDiv.style.display = "flex";
+}
 
 function addQuote() {
     const quoteInput = document.getElementById("newQuoteText");
