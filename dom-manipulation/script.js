@@ -23,7 +23,7 @@ const randomQuotes = [
 const displayContainer = document.getElementById("quoteDisplay");
 
 
-const handleAddQuote = () => {
+const showRandomQuote = () => {
     displayContainer.innerHTML = "";
     let idx = Math.floor(Math.random() * randomQuotes.length);
     const p = document.createElement("p");
@@ -32,7 +32,7 @@ const handleAddQuote = () => {
 }
 
 const showQuoteBtn = document.getElementById("newQuote");
-showQuoteBtn.addEventListener("click", handleAddQuote);
+showQuoteBtn.addEventListener("click", showRandomQuote);
 
 
 function addQuote() {
