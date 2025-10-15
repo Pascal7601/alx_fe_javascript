@@ -1,0 +1,68 @@
+*, *::after, *::before {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    text-align: center;
+    background-color: #2F4F4F;
+    color: white;
+    font-family: sans-serif;
+}
+h1 {
+    padding-top: 1em;
+}
+
+#quoteDisplay {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3em 1em;
+}
+p {
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.4;
+    font-family: 'Poppins';
+    padding: 0.5em;
+    position: relative;
+}
+p::before {
+    content: "“";
+    color: #BDB76B;
+    font-size: 4em;
+    position: absolute;
+    top: -0.5em;
+    left: -0.2em;
+    display: inline-block;
+}
+p::after {
+    content: "”";
+    font-size: 4em;
+    color: #BDB76B;
+    position: absolute;
+    bottom: -0.9em;
+}
+button {
+    margin-top: 35px;
+    padding: 2em 3em;
+    background-color: #BDB76B;
+    border-radius: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+.new-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+    gap: 1.5em;
+}
+input {
+    outline: none;
+    padding: 1em 2em;
+}
