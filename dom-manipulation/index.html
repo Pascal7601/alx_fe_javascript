@@ -11,6 +11,14 @@
   </head>
   <body>
     <h1>Dynamic Quote Generator</h1>
+
+    <select name="quotesSelect" id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+      <option value="philosophical">philosophical</option>
+      <option value="wisdom">wisdom</option>
+      <option value="motivational">motivational</option>
+      <option value="inspiration">inspiration</option>
+    </select>
     <div class="container">
       <div class="last-seen">
         <h3>Last Seen quotes</h3>

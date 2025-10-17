@@ -38,17 +38,32 @@ if (quotes) {
 console.log(randomQuotes);
 const displayContainer = document.getElementById("quoteDisplay");
 
+function populateCategories(quote) {
+    quote.map((q) => {
+        console.log(q)
+        const p = document.createElement("p");
+        p.classList = "current-quote";
+        p.textContent = q.text;
+        p.style.display = "block";
+        displayContainer.appendChild(p);
+    })
+}
 
-const showRandomQuote = () => {
+// show random quotes on the screen but when  a category is selected
+// filter all quotes and show only that fit that category
+const showRandomQuote = (quote = null) => {
     displayContainer.innerHTML = "";
-    let idx = Math.floor(Math.random() * randomQuotes.length);
-    const p = document.createElement("p");
-    p.classList = "current-quote";
-    p.textContent = randomQuotes[idx].text;
-    displayContainer.appendChild(p);
-
-    savedQuote = randomQuotes[idx].text;
-    sessionStorage.setItem("quote", savedQuote);
+    if (quote.length > 0) {
+        populateCategories(quote)
+    } else {
+        let idx = Math.floor(Math.random() * randomQuotes.length);
+        const p = document.createElement("p");
+        p.classList = "current-quote";
+        p.textContent = randomQuotes[idx].text;
+        displayContainer.appendChild(p);
+        savedQuote = randomQuotes[idx].text;
+        sessionStorage.setItem("quote", savedQuote);
+    }
 }
 
 const lastSeenContainer = document.querySelector(".last-seen");
@@ -106,6 +121,19 @@ let blob = new Blob([JSON.stringify(randomQuotes)], { type: "application/json"})
 let url = URL.createObjectURL(blob);
 a.href = url;
 a.download = "quotes.json";
-console.log(a);
-console.log("url", url);
+
+//filters the  quotes by what the user selects from the dropdown
+function filterQuotes() {
+    let category = sessionStorage.getItem("category") ?? 0;
+    console.log(category);
+    let select = document.getElementById("categoryFilter");
+    let categorySelect;
+    if (category) {
+        categorySelect = category;
+    } else {categorySelect = select.value;}
+    
+    sessionStorage.setItem("category", categorySelect);
+    let filterQuote = randomQuotes.filter((quote, idx) => quote.category === categorySelect);
+    showRandomQuote(filterQuote);
+}
 lastSeenQuote();
