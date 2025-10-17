@@ -11,10 +11,17 @@
   </head>
   <body>
     <h1>Dynamic Quote Generator</h1>
-    <div id="quoteDisplay"></div>
+    <div class="container">
+      <div class="last-seen">
+        <h3>Last Seen quotes</h3>
+      </div>
+      <div id="quoteDisplay"></div>
+    </div>
+    <a id="d-link">download quotes</a>
+    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
     <button id="newQuote">Show New Quote</button>
-
     <button onclick="createAddQuoteForm()">Add your Quote</button>
+    
 
     <div class="new-container">
         <input id="newQuoteText" type="text" placeholder="Enter a new quote" />

@@ -13,7 +13,10 @@ body {
 h1 {
     padding-top: 1em;
 }
-
+.container {
+    display: flex;
+    flex: 1 2;
+}
 #quoteDisplay {
     width: 100%;
     display: flex;
@@ -21,15 +24,15 @@ h1 {
     align-items: center;
     padding: 3em 1em;
 }
-p {
+
+.current-quote {
     text-align: center;
     max-width: 400px;
-    line-height: 1.4;
     font-family: 'Poppins';
     padding: 0.5em;
     position: relative;
 }
-p::before {
+.current-quote::before {
     content: "“";
     color: #BDB76B;
     font-size: 4em;
@@ -38,12 +41,17 @@ p::before {
     left: -0.2em;
     display: inline-block;
 }
-p::after {
+.current-quote::after {
     content: "”";
     font-size: 4em;
     color: #BDB76B;
     position: absolute;
     bottom: -0.9em;
+}
+p {
+    max-width: 300px;
+    line-height: 1.4;
+    margin-left: 0.5em;
 }
 button {
     margin-top: 35px;
@@ -66,4 +74,10 @@ button {
 input {
     outline: none;
     padding: 1em 2em;
+}
+h3 {
+    margin-bottom: 1em;
+}
+h1 {
+    margin-left: 6em;
 }

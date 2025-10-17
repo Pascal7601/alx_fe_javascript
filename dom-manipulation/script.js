@@ -1,4 +1,4 @@
-const randomQuotes = [
+let randomQuotes = [
     {
         text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
         category: "philosophical"
@@ -20,6 +20,22 @@ const randomQuotes = [
         category: "motivational"
     },
 ]
+
+// obtain the last seen quote from session storage
+let savedQuote = sessionStorage.getItem("quote") ?? "No last viewed quote";
+
+// obtain the quotes array from local storage
+let quotes = localStorage.getItem("quotes");
+
+console.log(savedQuote);
+
+if (quotes) {
+    quotes = JSON.parse(quotes);
+    if (Array.isArray(quotes)) {
+        randomQuotes = quotes;
+    }
+}
+console.log(randomQuotes);
 const displayContainer = document.getElementById("quoteDisplay");
 
 
@@ -27,15 +43,28 @@ const showRandomQuote = () => {
     displayContainer.innerHTML = "";
     let idx = Math.floor(Math.random() * randomQuotes.length);
     const p = document.createElement("p");
+    p.classList = "current-quote";
     p.textContent = randomQuotes[idx].text;
     displayContainer.appendChild(p);
+
+    savedQuote = randomQuotes[idx].text;
+    sessionStorage.setItem("quote", savedQuote);
+}
+
+const lastSeenContainer = document.querySelector(".last-seen");
+
+// function called when the vrowser renders to display last seen quotes
+const lastSeenQuote = () => {
+    let p = document.createElement("p");
+    p.textContent = savedQuote;
+    lastSeenContainer.appendChild(p);
 }
 
 const showQuoteBtn = document.getElementById("newQuote");
 showQuoteBtn.addEventListener("click", showRandomQuote);
 
 function createAddQuoteForm() {
-    newQuoteDiv = document.querySelector(".new-container");
+    let newQuoteDiv = document.querySelector(".new-container");
     newQuoteDiv.style.display = "flex";
 }
 
@@ -47,7 +76,36 @@ function addQuote() {
     const categoryText = categoryInput.value.trim();
 
     randomQuotes.push({text: inputText, category: categoryText});
+    localStorage.setItem("quotes", JSON.stringify(randomQuotes));
+
     quoteInput.value = "";
     categoryInput.value = "";
 
 }
+
+// save the quotes to local storage after upload
+const saveQuotes = () => {
+    localStorage.setItem("quotes", JSON.stringify(randomQuotes));
+}
+
+// function to import json from the user upload
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+        const importedQuotes = JSON.parse(event.target.result);
+        console.log(importedQuotes);
+        randomQuotes.push(...importedQuotes);
+        saveQuotes();
+        alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+}
+
+let a = document.getElementById("d-link");
+let blob = new Blob([JSON.stringify(randomQuotes)], { type: "application/json"})
+let url = URL.createObjectURL(blob);
+a.href = url;
+a.download = "quotes.json";
+console.log(a);
+console.log("url", url);
+lastSeenQuote();
