@@ -128,16 +128,16 @@ function filterQuotes() {
     console.log(category);
     let select = document.getElementById("categoryFilter");
     const option = new Option(category, category);
-    let categorySelect;
+    let selectedCategory;
     if (category) {
-        categorySelect = category;
-    } else {categorySelect = select.value;}
+        selectedCategory = category;
+    } else {selectedCategory = select.value;}
 
-    if(categorySelect === "all") {
+    if(selectedCategory === "all") {
         showRandomQuote();
     } else {
-        sessionStorage.setItem("category", categorySelect);
-        let filterQuote = randomQuotes.filter((quote, idx) => quote.category === categorySelect);
+        sessionStorage.setItem("category", selectedCategory);
+        let filterQuote = randomQuotes.filter((quote, idx) => quote.category === selectedCategory);
         showRandomQuote(filterQuote);
     }
     
