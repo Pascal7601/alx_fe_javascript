@@ -127,13 +127,19 @@ function filterQuotes() {
     let category = sessionStorage.getItem("category") ?? 0;
     console.log(category);
     let select = document.getElementById("categoryFilter");
+    const option = new Option(category, category);
     let categorySelect;
     if (category) {
         categorySelect = category;
     } else {categorySelect = select.value;}
+
+    if(categorySelect === "all") {
+        showRandomQuote();
+    } else {
+        sessionStorage.setItem("category", categorySelect);
+        let filterQuote = randomQuotes.filter((quote, idx) => quote.category === categorySelect);
+        showRandomQuote(filterQuote);
+    }
     
-    sessionStorage.setItem("category", categorySelect);
-    let filterQuote = randomQuotes.filter((quote, idx) => quote.category === categorySelect);
-    showRandomQuote(filterQuote);
 }
 lastSeenQuote();
