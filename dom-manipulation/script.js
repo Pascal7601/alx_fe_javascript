@@ -142,4 +142,18 @@ function filterQuotes() {
     }
     
 }
+async function fetchServerQuotes() {
+    const response = await fetch(MOCK_API_URL); // MOCK_API_URL is 'https://jsonplaceholder.typicode.com/posts?_limit=15'
+    if (!response.ok) {
+        throw new Error("Network response was not ok");
+    }
+    const posts = await response.json();
+
+    // Transform API data ({id, title, body}) into our format ({text, category})
+    return posts.map(post => ({
+        text: post.body, // Use the post body as the quote text
+        // Use the first word of the title as the category
+        category: post.title.split(' ')[0] 
+    }));
+}
 lastSeenQuote();
