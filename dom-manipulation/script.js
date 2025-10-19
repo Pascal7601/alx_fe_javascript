@@ -142,7 +142,7 @@ function filterQuotes() {
     }
     
 }
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() {
     const response = await fetch(MOCK_API_URL); // MOCK_API_URL is 'https://jsonplaceholder.typicode.com/posts?_limit=15'
     if (!response.ok) {
         throw new Error("Network response was not ok");
