@@ -156,4 +156,40 @@ async function fetchQuotesFromServer() {
         category: post.title.split(' ')[0] 
     }));
 }
+
+async function postNewQuoteToServer(newQuote) {
+    // The mock API URL for posting
+    const POST_URL = 'https://jsonplaceholder.typicode.com/posts';
+
+    try {
+        const response = await fetch(POST_URL, {
+            // "method": "POST" tells the server we are sending new data
+            method: "POST", 
+
+            // "headers" tell the server what kind of data we are sending
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            // "body" is the actual data, converted to a JSON string
+            body: JSON.stringify(newQuote) 
+        });
+
+        if (!response.ok) {
+            throw new Error("Server responded with an error");
+        }
+
+        const savedData = await response.json();
+        console.log("Successfully saved to server:", savedData);
+        showNotification("New quote saved!");
+        
+        // You would probably want to re-sync after this
+        // to get the official ID from the server
+        syncWithServer(); 
+
+    } catch (error) {
+        console.error("Failed to post new quote:", error);
+        showNotification("Error saving new quote.");
+    }
+}
 lastSeenQuote();
